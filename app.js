@@ -19,3 +19,32 @@ const game = document.getElementById("game"),
   guessBtn = document.querySelector("#guess-btn"),
   guessInput = document.querySelector("#guess-input"),
   message = document.querySelector(".message");
+
+//Assign UI min and max
+minNum.textContent = min;
+maxNum.textContent = max;
+
+// listen for guess
+guessBtn.addEventListener("click", () => {
+  let guess = parseInt(guessInput.value);
+
+  //set message
+  const setMessage = (msg, color) => {
+    message.style.color = color;
+    message.textContent = msg;
+  };
+  //validate
+  if (!guess || guess < min || guess > max) {
+    setMessage(`Please enter a number between ${min} and ${max}`, "red");
+  }
+
+  //Check if winning num
+  if (guess === winningNum) {
+    //Disable input
+    guessInput.disabled = true;
+    //make boarder green
+    guessInput.style.borderColor = "green";
+    //let user know they won
+    setMessage(`Congratulations, ${winningNum} is correct!`, "green");
+  }
+});
