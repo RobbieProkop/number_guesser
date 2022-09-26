@@ -33,18 +33,50 @@ guessBtn.addEventListener("click", () => {
     message.style.color = color;
     message.textContent = msg;
   };
+
+  const gameOver = (won) => {
+    let color = won ? "green" : "red";
+    let message = won
+      ? `Congratulations, ${winningNum} is correct!`
+      : `Game over. The correct number was ${winningNum}`;
+    //Disable input
+    guessInput.disabled = true;
+    //Disable BTN
+    guessBtn.disabled = true;
+    //make boarder green
+    guessInput.style.borderColor = color;
+    //let user know they won
+    setMessage(message, color);
+    //Clear input
+    guessInput.value = "";
+  };
   //validate
-  if (!guess || guess < min || guess > max) {
-    setMessage(`Please enter a number between ${min} and ${max}`, "red");
+  if (isNaN(guess) || guess < min || guess > max) {
+    return setMessage(`Please enter a number between ${min} and ${max}`, "red");
   }
 
   //Check if winning num
   if (guess === winningNum) {
-    //Disable input
-    guessInput.disabled = true;
-    //make boarder green
-    guessInput.style.borderColor = "green";
-    //let user know they won
-    setMessage(`Congratulations, ${winningNum} is correct!`, "green");
+    //Game over, WON
+    gameOver(true);
+  } else {
+    // wrong number
+    guessesLeft -= 1;
+
+    if (guessesLeft === 0) {
+      //Game over - lost
+      return gameOver(false);
+    }
+
+    // game continues
+    guessInput.style.borderColor = "red";
+
+    //Clear input
+    guessInput.value = "";
+    // tell user answer is incorrect
+    setMessage(
+      `${guess} is not correct, ${guessesLeft} guesses remaining`,
+      "red"
+    );
   }
 });
