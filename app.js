@@ -9,7 +9,6 @@ Game RUles:
 //Random num
 const getRandomNum = () => {
   let randomNum = Math.floor(Math.random() * (max - min) + 1);
-  console.log(randomNum);
 };
 // Game Values
 let min = 1,
