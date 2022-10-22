@@ -7,8 +7,8 @@ Game RUles:
 */
 
 //Random num
-const getRandomNum = () => {
-  let randomNum = Math.floor(Math.random() * (max - min) + 1);
+const getRandomNum = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + 1);
 };
 // Game Values
 let min = 1,
